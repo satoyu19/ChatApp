@@ -15,17 +15,26 @@ struct ContentView: View {
     
     @ObservedObject var messageViewModel = MessageViewModel()
     
-    @State var message = ""
     
     let db = Firestore.firestore()
     
     @State var roomName = ""
     
     var body: some View {
+        
+        NavigationView{
         VStack{
             //ルームリスト
             List(roomViewModel.rooms){ i in
-                Text(i.roomName)
+                let roomId = i.id     
+//                let roomId = "670C5675-AAC2-4987-B112-6550583E2EF3"
+//                Button{
+                NavigationLink(destination: ChatView(roomId: roomId)){
+                        Text(i.roomName)
+                    }
+//                }label : {
+//                    Text(i.roomName)
+//                }
             }
             HStack{
                 TextField("送信メッセージ", text: $roomName)
@@ -39,26 +48,27 @@ struct ContentView: View {
                 }
             }
             
-            HStack{
-                TextField("送信メッセージ", text: $message)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                Button{
-                    
-                    let currentDate = Date()
-                    let dateFormatter = DateFormatter()
-                    
-                    // DateFormatter を使用して書式とロケールを指定する
-                    dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
-                    //Authに保存された送信者のデータを渡す(userId,name)、テスト中は仮の値を渡す
-                    //roomIdもルーム選択された際に保持するようにする → ?
-                    messageViewModel.sendMessage(userId: "000", userName: "仮", message: message, date: dateFormatter.string(from: currentDate), roomId: "juutXCdzRQNrTAywcfyC")
-                } label: {
-                    Text("送信")
-                }
-            }
+//            HStack{
+//                TextField("送信メッセージ", text: $message)
+//                    .textFieldStyle(RoundedBorderTextFieldStyle())
+//                
+//                Button{
+//                    
+//                    let currentDate = Date()
+//                    let dateFormatter = DateFormatter()
+//                    
+//                    // DateFormatter を使用して書式とロケールを指定する
+//                    dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
+//                    //Authに保存された送信者のデータを渡す(userId,name)、テスト中は仮の値を渡す
+//                    //roomIdもルーム選択された際に保持するようにする → ?
+//                    messageViewModel.sendMessage(userId: "000", userName: "仮", message: message, date: dateFormatter.string(from: currentDate), roomId: "670C5675-AAC2-4987-B112-6550583E2EF3")
+//                } label: {
+//                    Text("送信")
+//                }
+//            }
         }
     }
+}
 }
 
 struct ContentView_Previews: PreviewProvider {

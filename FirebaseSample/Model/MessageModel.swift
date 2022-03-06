@@ -9,11 +9,12 @@ import Foundation
 import FirebaseFirestore
 
 //コレクション内のドキュメントに持たせるデータ
-struct MessageModel {
+struct MessageModel: Identifiable {
     let userId : String  //Authでユーザー登録する際に決めたれた一意のIDをここで保持する?それを利用し自身の送信データと他の送信データかを分ける
     let userName: String
     let message: String
     let date: String
+    let id = UUID()
 }
 
 class MessageViewModel: ObservableObject {
@@ -34,10 +35,12 @@ class MessageViewModel: ObservableObject {
             }
             if let snapShot = snapShot {
                 for snap in snapShot.documentChanges{
+                
+//                    guard let userId = snap.document.get("userId") as? String, let userName = snap.document.get("userName") as? String, let message = snap.document.get("message") as? String, let date = snap.document.get("date") as? String else{return}
                     let userId = snap.document.get("userId") as! String
-                    let userName = snap.document.get("userName") as! String
+                    let userName = snap.document.get("name") as! String
                     let message = snap.document.get("message") as! String
-                    let date = snap.document.get("date") as! String
+                    let date = snap.document.get("data") as! String
                     
                     self.messages.append(MessageModel(userId: userId, userName: userName, message: message, date: date))
                 }
