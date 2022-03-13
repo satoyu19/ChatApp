@@ -29,7 +29,7 @@ struct ContentView: View {
                 let roomId = i.id     
 //                let roomId = "670C5675-AAC2-4987-B112-6550583E2EF3"
 //                Button{
-                NavigationLink(destination: ChatView(roomId: roomId)){
+                NavigationLink(destination: ChatView(roomId: roomId, roomName:i.roomName)){
                         Text(i.roomName)
                     }
 //                }label : {

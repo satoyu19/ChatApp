@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 //コレクション内のドキュメントに持たせるデータ
-struct MessageModel: Identifiable {
+struct MessageModel: Hashable {
     let userId : String  //Authでユーザー登録する際に決めたれた一意のIDをここで保持する?それを利用し自身の送信データと他の送信データかを分ける
     let userName: String
     let message: String
