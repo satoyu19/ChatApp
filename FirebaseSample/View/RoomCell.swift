@@ -12,7 +12,7 @@ struct RoomCell: View {
     var body: some View {
         HStack {
             Text(roomName)
-                .foregroundColor(.green)
+                .foregroundColor(.customGreen)
             Spacer()
         }
         .padding()

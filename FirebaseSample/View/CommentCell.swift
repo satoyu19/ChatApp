@@ -15,14 +15,14 @@ struct CommentCell: View {
                 
                 HStack{
                     Text(commentData.userName)
-                        .foregroundColor(.green)
+                        .foregroundColor(.customGreen)
                     Spacer()
                 }
                 
                 HStack {
                     Spacer()
                     Text(commentData.date)
-                        .foregroundColor(.green)
+                        .foregroundColor(.customGreen)
                 }
             }
             
